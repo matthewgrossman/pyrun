@@ -36,11 +36,8 @@ class PyRun():
         exec(self.command, self._scope)
 
     def run(self):
-        if self.linewise:
-            for i, line in enumerate(self.stream):
-                self.run_command({
-                    self.var: line.strip(),
-                    self.index: i
-                })
-        else:
-            self.run_command({self.var: self.stream.read()})
+        for i, line in enumerate(self.stream):
+            self.run_command({
+                self.var: line.strip(),
+                self.index: i
+            })
