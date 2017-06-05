@@ -2,6 +2,8 @@ import importlib
 
 
 class PyRun():
+    SUBSITUTION_VAR = '_l'
+    SUBSITUTION_INDEX = '_i'
 
     def __init__(self,
                  stream,
