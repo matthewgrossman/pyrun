@@ -9,9 +9,12 @@ parser = argparse.ArgumentParser(description='Stream-based python shell tool')
 parser.add_argument('-e',
                     dest='command',
                     help='Command to run')
+parser.add_argument('-p', '--print-line',
+                    dest='print_line', action='store_true',
+                    help='Prints out the line after evaluating the command')
 parser.add_argument('-v', '--var',
                     dest='var', default=PyRun.SUBSITUTION_VAR,
-                    help='Name of variable to substitute in stdin')
+                    help='Name of variable to substitute for stdin')
 parser.add_argument('-i', '--index',
                     dest='index', default=PyRun.SUBSITUTION_INDEX,
                     help='Name of variable to substitute in current line #')
@@ -26,6 +29,7 @@ if __name__ == '__main__':
         command=args.command,
         var=args.var,
         index=args.index,
-        modules=args.modules
+        modules=args.modules,
+        print_line=args.print_line
     )
     py_cmd.run()
