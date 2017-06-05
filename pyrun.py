@@ -6,12 +6,11 @@ class PyRun():
     SUBSITUTION_INDEX = '_i'
 
     def __init__(self,
-                 stream,
-                 command,
-                 linewise,
-                 var,
-                 index,
-                 modules):
+                 stream, command,
+                 linewise=True,
+                 var=SUBSITUTION_VAR,
+                 index=SUBSITUTION_INDEX,
+                 modules=[]):
 
         self.stream = stream
         self.command = command
@@ -22,7 +21,7 @@ class PyRun():
         self.index = index
 
         # dictionary maintaining all variables in scope for the command
-        self.scope = {}
+        self._scope = {}
 
         # import all modules desired for the command
         module_dict = {module: importlib.import_module(module)
@@ -30,11 +29,11 @@ class PyRun():
         self._update_scope(module_dict)
 
     def _update_scope(self, scopes):
-        self.scope.update(scopes)
+        self._scope.update(scopes)
 
     def run_command(self, scopes):
         self._update_scope(scopes)
-        exec(self.command, self.scope)
+        exec(self.command, self._scope)
 
     def run(self):
         if self.linewise:
