@@ -16,11 +16,6 @@ class PyRun():
         self.command = command
         self.print_line = print_line
 
-        if self.print_line:
-            self.command = "output = ({})".format(
-                self.command
-            )
-
         # subsitution variables
         self.var = var
         self.index = index
@@ -38,8 +33,8 @@ class PyRun():
 
     def run_command(self, scopes):
         self._update_scope(scopes)
-        exec(self.command, self._scope)
-        return self._scope['output'] if self.print_line else None
+        output = eval(self.command, self._scope)
+        return output if self.print_line else None
 
     def run(self):
         for i, line in enumerate(self.stream):
